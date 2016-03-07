@@ -63,7 +63,7 @@ public class XMLFileManipulation {
 
 	/*
 	 * buildElements builds elements on an xml,
-	 * -elements	= A hash map<ElementName, ElementHierarchy>
+	 * -elements	= A map<ElementName, ElementHierarchy>
 	 *  
 	 */
 	public void buildElements(Map<String, Integer> elements){
@@ -73,7 +73,7 @@ public class XMLFileManipulation {
 		
 		for(Entry<String, Integer> element : elements.entrySet()){
 			String name = element.getKey();
-			int hierarchy = element.getValue();
+			int hierarchy = element.getValue();//TODO Make possible hierarchy.
 			
 			TempElement = doc.createElement(name);
 			rootElement.appendChild(TempElement);
@@ -184,7 +184,7 @@ public class XMLFileManipulation {
 			b13Node = (Node) expression.evaluate(doc, XPathConstants.NODE);
 			b13Node.getParentNode().removeChild(b13Node);
 			saveXML("Users");
-			return true;
+			return true; 
 		} catch (XPathExpressionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
