@@ -73,7 +73,7 @@ public class XMLFileManipulation {
 		
 		for(Entry<String, Integer> element : elements.entrySet()){
 			String name = element.getKey();
-			int hierarchy = element.getValue();
+			int hierarchy = element.getValue();//TODO Make possible hierarchy.
 			
 			TempElement = doc.createElement(name);
 			rootElement.appendChild(TempElement);
