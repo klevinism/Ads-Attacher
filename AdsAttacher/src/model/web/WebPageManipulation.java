@@ -23,14 +23,18 @@ public class WebPageManipulation{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Iterator<DomElement> getAllElements(HtmlForm form){
-		return (Iterator<DomElement>)form.getChildElements(); 
+	public Iterable<DomElement> getAllElements(HtmlForm form){
+		return (Iterable<DomElement>)form.getChildElements(); 
+	}
+	
+	public void setElement(DomElement element, String text){
+		element.setNodeValue(text);
 	}
 	
 	public HtmlSubmitInput getSubmitButton(HtmlForm form){
 		
 		HtmlSubmitInput btn = null;
-		Iterator<DomElement> itr = this.getAllElements(form);
+		Iterator<DomElement> itr = this.getAllElements(form).iterator();
 
 		for(DomElement element; itr.hasNext();){
 			element = itr.next();

@@ -12,10 +12,15 @@ public class WebConnection{
 	
 	public WebConnection(){
 		webClient = new WebClient();
+		webClient.getOptions().setJavaScriptEnabled(false);
 	}
 	
 	public void connect(String url) throws MalformedURLException, IOException{
 		startPage = webClient.getPage(url);
+	}
+	
+	public HtmlPage getStartPage(){
+		return startPage;
 	}
 	
 }
