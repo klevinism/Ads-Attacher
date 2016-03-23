@@ -153,7 +153,7 @@ public class XMLFileManipulation {
 			Node nNode = nList.item(temp);
 
 			if(nNode.hasChildNodes()){
-				if (nNode.getNodeType() == Node.ELEMENT_NODE){
+				if(nNode.getNodeType() == Node.ELEMENT_NODE){
 					NodeList nChildList = nNode.getChildNodes();
 					
 					for(int x=0; x<nChildList.getLength(); x++){
