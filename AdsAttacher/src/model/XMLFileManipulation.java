@@ -2,7 +2,10 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -30,7 +33,6 @@ public class XMLFileManipulation {
 	
 	private DocumentBuilder docBuilder;
 	private Document doc;
-	private	Element username, password;
 	
 	public XMLFileManipulation(){
 		try{
@@ -119,7 +121,6 @@ public class XMLFileManipulation {
 		NodeList nList = doc.getElementsByTagName("user");
 		Map<Integer, HashMap<String, String>> list= new HashMap<Integer, HashMap<String, String>>();
 		
-		
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			HashMap<String,String> credentials = new HashMap<String, String>();
 			Node nNode = nList.item(temp);
@@ -139,6 +140,41 @@ public class XMLFileManipulation {
 			}
 		} 
 		return list;
+	}
+	
+	public <T> T Read(Class<T> cls) throws NoSuchMethodException, SecurityException,
+	InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		T construct = null;
+		Node nFirstChild = doc.getFirstChild();
+		NodeList nList = nFirstChild.getChildNodes();
+		List<String> arrUpdater = new ArrayList<String>();
+
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+			Node nNode = nList.item(temp);
+
+			if(nNode.hasChildNodes()){
+				if (nNode.getNodeType() == Node.ELEMENT_NODE){
+					NodeList nChildList = nNode.getChildNodes();
+					
+					for(int x=0; x<nChildList.getLength(); x++){
+						Node nChildNode = nChildList.item(x);
+						
+						if (nChildNode.getNodeType() == Node.ELEMENT_NODE){
+							Element elem = (Element) nChildNode;
+							String elemContent = elem.getTextContent();
+							
+							if(elemContent!= null && elemContent!= ""){
+								arrUpdater.add(elemContent);
+							}
+						}
+					}
+				}
+			}
+		} 
+		
+		construct = cls.getDeclaredConstructor(List.class).newInstance((Object)arrUpdater);
+
+		return (T)construct;
 	}
 
 	public boolean Modify(String nodeElement, String OriginalText, String ReplacedText){
