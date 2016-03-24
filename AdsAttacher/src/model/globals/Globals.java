@@ -7,4 +7,5 @@ public class Globals {
 	 */
 	public static XML xml;
 	public static Actions actions;
+	public static Paths paths;
 }

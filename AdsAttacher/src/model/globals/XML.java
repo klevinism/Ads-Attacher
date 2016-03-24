@@ -1,6 +1,6 @@
 package model.globals;
 
-public class XML {
+public class XML extends Globals{
 
 	/*
 	 * Integer Declaration
