@@ -25,8 +25,10 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 public class XMLFileManipulation {
@@ -141,15 +143,15 @@ public class XMLFileManipulation {
 		} 
 		return list;
 	}
-	
-	public <T> T Read(Class<T> cls) throws NoSuchMethodException, SecurityException,
-	InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+
+	public <T> T Read(Class<T> cls) throws Exception{
 		T construct = null;
 		Node nFirstChild = doc.getFirstChild();
 		NodeList nList = nFirstChild.getChildNodes();
-		List<String> arrUpdater = new ArrayList<String>();
+		Map<String, String> fileData= new HashMap<String, String>();
+		Map<String, NamedNodeMap> fileAttributes= new HashMap<String, NamedNodeMap>();
 
-		for (int temp = 0; temp < nList.getLength(); temp++) {
+		for (int temp = 0; temp < nList.getLength(); temp++){
 			Node nNode = nList.item(temp);
 
 			if(nNode.hasChildNodes()){
@@ -164,7 +166,8 @@ public class XMLFileManipulation {
 							String elemContent = elem.getTextContent();
 							
 							if(elemContent!= null && elemContent!= ""){
-								arrUpdater.add(elemContent);
+								fileData.put(elem.getTagName(), elemContent);
+								fileAttributes.put(elem.getTagName(), nChildNode.getAttributes());
 							}
 						}
 					}
@@ -172,7 +175,7 @@ public class XMLFileManipulation {
 			}
 		} 
 		
-		construct = cls.getDeclaredConstructor(List.class).newInstance((Object)arrUpdater);
+		construct = cls.getDeclaredConstructor(Map.class,Map.class).newInstance((Object)fileData,(Object)fileAttributes);
 
 		return (T)construct;
 	}

@@ -2,7 +2,11 @@ package model.web;
 
 import java.util.Iterator;
 
+import org.cyberneko.html.HTMLElements.Element;
+
 import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
@@ -27,21 +31,36 @@ public class WebPageManipulation{
 		return (Iterable<DomElement>)form.getChildElements(); 
 	}
 	
-	public void setElement(DomElement element, String text){
-		element.setNodeValue(text);
+	public DomElement getElementById(String id){
+		return Page.getElementById(id);
+	}
+
+	public DomElement getElementByName(String name){
+		return Page.getElementByName(name);
 	}
 	
-	public HtmlSubmitInput getSubmitButton(HtmlForm form){
+	public void setPage(HtmlPage page){
+		Page = page;
+	}
+	
+	public void setElement(DomElement element, String text){
+		element.setAttribute("value",text);
+	}
+	
+	public HtmlButton getSubmitButton(HtmlForm form){
 		
-		HtmlSubmitInput btn = null;
+		HtmlButton btn = null;
 		Iterator<DomElement> itr = this.getAllElements(form).iterator();
 
 		for(DomElement element; itr.hasNext();){
 			element = itr.next();
-			if(element.getAttribute("type").equals("submit")){
-				btn = (HtmlSubmitInput)element;
+			if(element.hasChildNodes()){
+				if(element.getFirstChild().getNodeName().equals("button")){
+					btn = (HtmlButton)element.getFirstChild();
+				}
 			}
 		}
+		
 		return btn;
 	}
 	

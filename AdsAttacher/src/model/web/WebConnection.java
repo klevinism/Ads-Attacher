@@ -13,6 +13,11 @@ public class WebConnection{
 	public WebConnection(){
 		webClient = new WebClient();
 		webClient.getOptions().setJavaScriptEnabled(false);
+		webClient.getOptions().setActiveXNative(false);
+		webClient.getOptions().setCssEnabled(false);
+		webClient.getOptions().setAppletEnabled(false);
+		webClient.getOptions().setDoNotTrackEnabled(false);
+		webClient.getOptions().setPopupBlockerEnabled(false);
 	}
 	
 	public void connect(String url) throws MalformedURLException, IOException{
