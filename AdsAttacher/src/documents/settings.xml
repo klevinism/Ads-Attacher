@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<UserList>
-<settings id="1">
-<wp-admin-url></wp-admin-url>
+<SettingsList>
+<GeneralSettings>
+<wp-url></wp-url>
 <username></username>
 <password></password>
 <ad-code></ad-code>
-</settings>
-</UserList>
+</GeneralSettings>
+<AdvancedSettings>
+<Title field=""></Title>
+<Content field=""></Content>
+<Publish field=""></Publish>
+</AdvancedSettings>
+</SettingsList>

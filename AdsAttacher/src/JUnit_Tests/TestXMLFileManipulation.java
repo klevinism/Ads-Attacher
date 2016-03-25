@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Test;
 
-import model.UpdaterObject;
 import model.XMLFileManipulation;
+import model.updater.UpdaterObject;
 
 public class TestXMLFileManipulation {
 	@Test
@@ -16,11 +16,11 @@ public class TestXMLFileManipulation {
 		UpdaterObject updateObject = new UpdaterObject();
 		try {
 			updateObject = (UpdaterObject)xmlFM.Read(new UpdaterObject().getClass());
-		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println(updateObject.getCurrentVersion(0)+"I did this shit");
+		System.out.println(updateObject.getCurrentVersion()+"I did this shit");
 	}
 }
