@@ -1,6 +1,6 @@
 package model.globals;
 
-public class Globals {
+public abstract class Globals {
 	
 	/*
 	 * Class Declaration
