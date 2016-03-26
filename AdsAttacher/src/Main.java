@@ -31,7 +31,7 @@ public class Main{
 					try {
 						View_Frame frame = new View_Frame("Ads Attacher");
 						frame.setVisible(true);
-						frame.setContentPane(new MainView_Panel());
+						frame.setContentPane(new AttachAdView_Panel());
 						
 					} catch (Exception e) {
 						e.printStackTrace();
