@@ -131,7 +131,7 @@ public class MainViewController extends Controller{
 			HtmlPage nxt = publishButton.click();
 			webPageManipulation.setPage(nxt);
 			
-			DomElement url_posted = webPageManipulation.getElementById("editable-post-name");
+			DomElement url_posted = webPageManipulation.getElementById("editable-post-name-full");
 			JOptionPane.showMessageDialog(null, "http://interestingfacts.altervista.org/"+url_posted.getTextContent());
 			StringSelection selection = new StringSelection("http://interestingfacts.altervista.org/"+url_posted.getTextContent());
 		    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
