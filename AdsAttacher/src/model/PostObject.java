@@ -1,7 +1,7 @@
 package model;
 
 public class PostObject{
-	private String Id;
+	private String Id; 
 	private String Title;
 	private String Author;
 	private String Category;
