@@ -6,7 +6,7 @@ public class PostObject{
 	private String Author;
 	private String Category;
 	private String Date;	
-	
+	 
 	public PostObject(){
 		
 	}
