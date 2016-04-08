@@ -1,16 +1,20 @@
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import controller.VersionController;
-import model.XMLFileManipulation;
+import model.globals.Globals;
 import model.updater.Updater;
-import model.updater.UpdaterObject;
 import view.*;
 
 public class Main{
-	
 	/**
 	 * Launch the application.
 	 */
@@ -30,8 +34,15 @@ public class Main{
 				public void run() {
 					try {
 						View_Frame frame = new View_Frame("Ads Attacher");
+						
+						LauncherView_Panel launcherView = new LauncherView_Panel(frame);
+
+						Image image = Toolkit.getDefaultToolkit().getImage(launcherView.getClass().getResource("/resources/images/app-icon.jpeg"));
+						ImageIcon icon = new ImageIcon(image);
+						frame.setIconImage(icon.getImage());
+						
+						frame.setContentPane(launcherView);
 						frame.setVisible(true);
-						frame.setContentPane(new AttachAdView_Panel());
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -45,5 +56,6 @@ public class Main{
 			updater.setVisible(true);
 			updater.download();
 		}
+		
 	}	
 }

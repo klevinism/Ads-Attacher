@@ -11,6 +11,8 @@ public class Paths extends Globals {
 	public static String UpdaterXmlLocalFile = RootFolder + "/documents/updater.xml";
 	public static String SettingsXmlLocalFile = RootFolder + "/documents/settings.xml";
 	
+	public static String ResourcesLocalFolder = "/resources/";
+	public static String ImageLocalFolder = "/resources/images/";
 	/*
 	 * Remote global paths
 	 */
