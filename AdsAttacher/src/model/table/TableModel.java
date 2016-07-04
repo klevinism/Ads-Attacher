@@ -8,13 +8,31 @@ import model.PostObject;
 
 public class TableModel extends AbstractTableModel {
 
-    private static final String[] columnNames = {"column 1", "column 2"};
+    private static String[] columnNames;
     private final LinkedList<PostObject> list;
 
     private TableModel() {
         list = new LinkedList<PostObject>();
     }
+    
+    public TableModel(LinkedList<PostObject> posts){
+    	list = posts;
+    }
 
+    @Override
+    public String getColumnName(int columnIndex){
+    	return columnNames[columnIndex];
+    }
+    
+    public void setColumnName(int i, String name) {
+        columnNames[i] = name;
+        fireTableStructureChanged();
+    }
+    
+    public void setColumnName(String[] names){
+    	columnNames = names;
+    }
+    
     public void addElement(PostObject e) {
         // Adds the element in the last position in the list
         list.add(e);
@@ -36,6 +54,9 @@ public class TableModel extends AbstractTableModel {
         switch(columnIndex) {
             case 0: return list.get(rowIndex).getId();
             case 1: return list.get(rowIndex).getTitle();
+            case 2: return list.get(rowIndex).getAuthor();
+            case 3: return list.get(rowIndex).getCategory();
+            case 4: return list.get(rowIndex).getDate();
         }
         return null;
     }

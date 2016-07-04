@@ -8,7 +8,6 @@ public class PostObject{
 	private String Date;	
 	 
 	public PostObject(){
-		
 	}
 	
 	public PostObject(int id, String title, String author, String category, String date){
