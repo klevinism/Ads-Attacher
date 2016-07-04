@@ -42,7 +42,7 @@ public class WebPageManipulation{
 	public void setPage(HtmlPage page){
 		Page = page;
 	}
-	
+
 	public void setElement(DomElement element, String text){
 		element.setAttribute("value",text);
 	}

@@ -49,12 +49,13 @@ public class MainViewController extends Controller{
 			+ "jQuery( document ).ready( function() {$('#link').mousemove( function( e ) {"
 			+ " $( '#wrax' ).css( { top: e.pageY - 17, left: e.pageX - 8} );} );} )</script></span>";
 	
-	public MainViewController(){
+	public MainViewController(MainViewInputObject inputObject){
+		InputObject = inputObject;
 	}
 	
 	@Override
-	public void setActionPerformed(String actionPerformer, MainViewInputObject inputObject){
-		InputObject = inputObject;
+	public void setActionPerformed(String actionPerformer){
+		
 		if(actionPerformer.equals(Globals.actions.MainView_AttachAd)){
 			
 			//TODO
@@ -126,7 +127,6 @@ public class MainViewController extends Controller{
 		contentElement.setText(AdCode+"\n"+EmbedCode.replaceFirst("#", InputObject.getVideoUrl().replace("watch?v=", "/embed/"))+
 				"\n"+EmbedCode.replaceFirst("#", InputObject.getVideoUrl().replace("watch?v=", "/embed/"))+"\n"+InputObject.getDescription());
 		
-		
 		try {
 			HtmlPage nxt = publishButton.click();
 			webPageManipulation.setPage(nxt);
@@ -142,7 +142,7 @@ public class MainViewController extends Controller{
 		}
 		
 		/*
-		 * TODO 
+		 * TODO
 		 * 1- set title 
 		 * 2- set description
 		 * 3- get url of post

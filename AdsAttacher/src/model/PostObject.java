@@ -1,7 +1,7 @@
 package model;
 
 public class PostObject{
-	private String Id; 
+	private int Id; 
 	private String Title;
 	private String Author;
 	private String Category;
@@ -11,11 +11,20 @@ public class PostObject{
 		
 	}
 	
-	public PostObject(String title, String author, String category, String date){
+	public PostObject(int id, String title, String author, String category, String date){
+		Id = id;
 		Title = title;
 		Author = author;
 		Category = category;
 		Date = date;
+	}
+	
+	public void setId(int id){
+		Id = id;
+	}
+	
+	public int getId(){
+		return Id;
 	}
 	
 	public void setTitle(String title){

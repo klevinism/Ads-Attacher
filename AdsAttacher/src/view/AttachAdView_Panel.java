@@ -11,18 +11,13 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import java.awt.Panel;
 
 import javax.swing.JTextArea;
-import javax.accessibility.AccessibleContext;
-import javax.naming.Context;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.awt.event.ActionEvent;
 
 public class AttachAdView_Panel extends JPanel {
@@ -39,7 +34,9 @@ public class AttachAdView_Panel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	public AttachAdView_Panel() {
+	public AttachAdView_Panel(final JFrame currentFrame) {
+		setSize(450,350);
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 100, 0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -110,15 +107,29 @@ public class AttachAdView_Panel extends JPanel {
 		gbc_textArea.gridy = 3;
 		add(txtAreaScrollPane, gbc_textArea);
 		
-		JButton btnAttachAd = new JButton("Attach Ad");
+		final JButton btnAttachAd = new JButton("Attach Ad");
 		btnAttachAd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				
-				mainVC = new MainViewController();
-				mainVC.setActionPerformed(btnAttachAd.getText(), getInput());
+				mainVC = new MainViewController(getInput());
+				mainVC.setActionPerformed(btnAttachAd.getText());
 				
 			}
 		});
+		
+		JButton button = new JButton("<-- Back");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentFrame.dispose();
+				currentFrame.setContentPane(new LauncherView_Panel(currentFrame));
+				currentFrame.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 0;
+		gbc_button.gridy = 4;
+		add(button, gbc_button);
 		
 		GridBagConstraints gbc_btnAttachAd = new GridBagConstraints();
 		gbc_btnAttachAd.fill = GridBagConstraints.HORIZONTAL;

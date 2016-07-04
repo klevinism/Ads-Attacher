@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.UIManager;
+
+import model.globals.Globals;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +38,7 @@ public class View_Frame extends JFrame {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(100, 100, 450, 300);
-		setSize(400, 350);
+		setSize(310, 241);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -51,7 +54,8 @@ public class View_Frame extends JFrame {
 			}
 		});
 		
-		mntmSettings.setIcon(new ImageIcon(View_Frame.class.getResource("/resources/images/icon-gear.png")));
+		mntmSettings.setIcon(new ImageIcon(View_Frame.class.getResource(Globals.paths.ImageLocalFolder+"icon-gear.png")));
+		
 		mnSettings.add(mntmSettings);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

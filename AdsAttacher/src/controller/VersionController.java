@@ -6,7 +6,6 @@ import model.updater.Updater;
 import model.updater.UpdaterObject;
 
 @SuppressWarnings("static-access")
-
 public class VersionController{
 	private String CurrentVersion;
 	private String LatestVersion;
@@ -44,6 +43,12 @@ public class VersionController{
 		return 0;
 	}
 	
+	public String getCurrentVersionAsString(){
+		if(CurrentVersion == null)
+			getCurrentVersion();
+		return CurrentVersion;
+	}
+	
 	private int getLocalVersion(String filePath) throws Exception{
 		fileManipulation = new XMLFileManipulation(filePath);
 		updateObject = (UpdaterObject)fileManipulation.Read(new UpdaterObject().getClass());
@@ -71,6 +76,12 @@ public class VersionController{
 			return Integer.parseInt(LatestVersion.replace(".", ""));	
 		}
 		return 0;
+	}
+	
+	public String getLatestVersionAsString(){
+		if(LatestVersion == null)
+			getLatestVersion();
+		return LatestVersion;
 	}
 	
 	private int getRemoteVersion(String remoteFilePath) throws Exception{

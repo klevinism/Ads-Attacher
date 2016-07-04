@@ -175,7 +175,7 @@ public class SettingView_Panel extends JPanel {
 		
 		//JavaFx used
 		//using a two-parameter constructor
-		JFXPanel panelJFXP = new JFXPanel();
+		final JFXPanel panelJFXP = new JFXPanel();
 		panelJFXP.setBackground(Color.WHITE);
 		
 		Platform.runLater(new Runnable(){
@@ -264,7 +264,7 @@ public class SettingView_Panel extends JPanel {
         		TextField tf_usernameFieldAttribute = new TextField();
         		grid2.add(tf_usernameFieldAttribute, 0, 2, 2, 1);
 
-        		TextField tf_usernameFieldValue = new TextField();
+        		final TextField tf_usernameFieldValue = new TextField();
         		tf_usernameFieldValue.setVisible(false);
         		grid2.add(tf_usernameFieldValue, 2, 2, 2, 1);        		
         		
@@ -293,7 +293,7 @@ public class SettingView_Panel extends JPanel {
         		TextField tf_passwordFieldAttribute = new TextField();
         		grid2.add(tf_passwordFieldAttribute, 0, 4, 2, 1);
 
-        		TextField tf_passwordFieldValue = new TextField();
+        		final TextField tf_passwordFieldValue = new TextField();
         		tf_passwordFieldValue.setVisible(false);
         		grid2.add(tf_passwordFieldValue, 2, 4, 2, 1);        		
 
@@ -322,7 +322,7 @@ public class SettingView_Panel extends JPanel {
         		TextField tf_loginButtonAttribute = new TextField();
         		grid2.add(tf_loginButtonAttribute, 0, 6, 2, 1);
 
-        		TextField tf_loginButtonValue = new TextField();
+        		final TextField tf_loginButtonValue = new TextField();
         		tf_loginButtonValue.setVisible(false);
         		grid2.add(tf_loginButtonValue, 2, 6, 2, 1);   
         		
