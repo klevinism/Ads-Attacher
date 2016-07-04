@@ -54,7 +54,7 @@ public class View_Frame extends JFrame {
 			}
 		});
 		
-		mntmSettings.setIcon(new ImageIcon(View_Frame.class.getResource(Globals.paths.ImageLocalFolder+"icon-gear.png")));
+		mntmSettings.setIcon(new ImageIcon(View_Frame.class.getResource(Globals.paths.LocalImageFolder+"icon-gear.png")));
 		
 		mnSettings.add(mntmSettings);
 		contentPane = new JPanel();

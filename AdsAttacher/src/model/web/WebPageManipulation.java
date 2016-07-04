@@ -1,10 +1,12 @@
 package model.web;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.cyberneko.html.HTMLElements.Element;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
@@ -63,5 +65,14 @@ public class WebPageManipulation{
 		
 		return btn;
 	}
+	
+	public DomNodeList<DomElement> getElementsByTagName(String tagName){
+		return this.Page.getElementsByTagName(tagName);
+	}
+	
+	public List<?> getByXPath(String regex){
+		return this.Page.getByXPath(regex);
+	}
+	
 	
 }

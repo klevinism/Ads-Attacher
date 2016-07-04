@@ -63,13 +63,16 @@ public class MainViewController extends Controller{
 			connection = new WebConnection();
 			try{
 				connection.connect("http://interestingfacts.altervista.org/wp-admin");
+				System.out.println(connection.getStartPage());
+
 				//Take this url from SettingViewInputObject
 			}catch(Exception e){
 				//Get Default Dialog used for exceptions, & add exception
 				//Show Dialog
 			}
 			
-			if(this.login()){//Login to site
+			
+			if(connection.login()){//Login to site
 				
 				try {
 					connection.connect("http://interestingfacts.altervista.org/wp-admin/post-new.php");
@@ -82,36 +85,6 @@ public class MainViewController extends Controller{
 				
 				System.out.println(postUrl);
 			}
-		}
-	}
-
-	private boolean login(){
-		webPageManipulation = new WebPageManipulation(connection.getStartPage());
-		
-		HtmlForm form = webPageManipulation.getFormByNr(0);
-		Iterator<DomElement> itr = webPageManipulation.getAllElements(form).iterator();
-		String[] str = {"","ourbusiness12"};
-		int cnt=0;
-		
-		while(itr.hasNext()){
-			DomElement elem = itr.next();
-			if(elem.hasChildNodes()){
-				DomElement childElem = elem.getFirstElementChild();
-				if(childElem.getNodeName().equals("input")&&cnt==1){
-					webPageManipulation.setElement(childElem,str[cnt]);
-				}
-				cnt++;
-			}
-		}
-
-		HtmlButton btnSubmit = webPageManipulation.getSubmitButton(form);
-		try {
-			btnSubmit.click();
-			return true;
-		} catch (IOException e) {
-			//Get Default Dialog used for exceptions, & add exception
-			//Show Dialog
-			return false;
 		}
 	}
 	
