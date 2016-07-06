@@ -60,11 +60,17 @@ public class LauncherView_Panel extends JPanel {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				long startTime = System.nanoTime();
+
 				DeleteAdView_Panel adDeleter = new DeleteAdView_Panel(currentFrame);
 				currentFrame.dispose();
 				currentFrame.setContentPane(adDeleter);
 				currentFrame.setSize(adDeleter.getSize());
 				currentFrame.setVisible(true);
+				long endTime = System.nanoTime();
+				long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+System.out.println(duration/1000000+"ms");
+
 			}
 		});
 		panel.add(btnNewButton_1, "cell 0 2,alignx center,aligny center");

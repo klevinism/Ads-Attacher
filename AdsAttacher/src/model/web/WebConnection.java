@@ -13,7 +13,7 @@ public class WebConnection{
 	private WebPageManipulation webPageManipulation;
 	
 	public WebConnection(){
-		webClient = new WebClient();
+		webClient = new WebClient(BrowserVersion.CHROME);
 		webClient.setJavaScriptTimeout(1000);
 		webClient.getOptions().setJavaScriptEnabled(false);
 		webClient.getOptions().setActiveXNative(false);
@@ -51,6 +51,8 @@ public class WebConnection{
 		}
 
 		HtmlButton btnSubmit = webPageManipulation.getSubmitButton(form);
+		System.out.println(btnSubmit.asText());
+		
 		try {
 			btnSubmit.click();
 			return true;

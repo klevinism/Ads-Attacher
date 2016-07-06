@@ -92,6 +92,7 @@ public class MainViewController extends Controller{
 		String postedUrl = null;
 		
 		webPageManipulation = new WebPageManipulation(connection.getStartPage());
+		
 		DomElement titleElement = webPageManipulation.getElementById("title");
 		HtmlTextArea contentElement =(HtmlTextArea) webPageManipulation.getElementById("content");
 		HtmlSubmitInput publishButton = (HtmlSubmitInput)webPageManipulation.getElementById("publish");

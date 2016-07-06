@@ -23,6 +23,10 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.RowSorterEvent;
+import javax.swing.event.RowSorterListener;
 
 @SuppressWarnings("serial")
 public class DeleteAdView_Panel extends JPanel {
@@ -31,7 +35,8 @@ public class DeleteAdView_Panel extends JPanel {
 	private JSeparator separator;
 	private PostObject posts = new PostObject();
 	private LinkedList<PostObject> linkedPosts = new LinkedList<PostObject>();
-	private String[] columnNames = {"Id","Title","Author","Category","Date"};
+	private String[] columnNames = {"Id","Title","Author","Category","Date","Url"};
+	private JButton DeleteAd, DeletePost;
 	
 	public void doInBackground(){
 		/*
@@ -40,7 +45,6 @@ public class DeleteAdView_Panel extends JPanel {
 		 */
 		if(posts.getAllPosts().size() != 0)
 			linkedPosts = posts.getAllPosts();
-		
 	}
 
 	/**
@@ -50,7 +54,7 @@ public class DeleteAdView_Panel extends JPanel {
 		doInBackground();
 
 		setSize(500,570);
-		setLayout(new MigLayout("", "[pref!,grow][][grow][grow][grow]", "[][][pref!,grow][grow][grow]"));
+		setLayout(new MigLayout("", "[pref!,grow][][grow][grow]", "[][][pref!,grow][grow]"));
 		
 		JLabel lblNewLabel = new JLabel("Search Post:");
 		add(lblNewLabel, "cell 0 0");
@@ -70,8 +74,16 @@ public class DeleteAdView_Panel extends JPanel {
 		table.setFillsViewportHeight(true);
 		add(new JScrollPane(table), "cell 0 3 3 1,grow");
 		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	ListSelectionModel lsm = (ListSelectionModel)event.getSource();
+		    	toggleDeleteButtons(!lsm.isSelectionEmpty());
+		    }
+		});
+		
 		separator = new JSeparator();
-		add(separator, "cell 0 3 3 1,grow");
+		add(separator, "cell 0 4 3 2,grow");
 		
 		JButton button = new JButton("<-- Back");
 		button.addActionListener(new ActionListener() {
@@ -81,25 +93,57 @@ public class DeleteAdView_Panel extends JPanel {
 				currentFrame.setVisible(true);
 			}
 		});
-		add(button, "cell 0 4 2 1");
-
+		add(button, "cell 0 5 2 0");
+			
 		
-		JButton DeleteAd = new JButton("Remove Ad");
+		DeleteAd = new JButton("Remove Ad");
 		try{
 			Image img = ImageIO.read(getClass().getResource(Globals.paths.LocalImageFolder+"block_ads.png"));
 			DeleteAd.setIcon(new ImageIcon(img));
 		}catch(IOException ex){
 		}
-		add(DeleteAd, "cell 1 4 3 4,wrap");
+		DeleteAd.setEnabled(false);
+		DeleteAd.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				getSelectedPost();
+			}}
+		);
 		
-		JButton DeletePost = new JButton("Remove Post");
+		add(DeleteAd, "cell 1 5 3 0,wrap");
+		
+		DeletePost = new JButton("Remove Post");
 		try{
 			Image img = ImageIO.read(getClass().getResource(Globals.paths.LocalImageFolder+"delete.png"));
 			DeletePost.setIcon(new ImageIcon(img));
 		}catch(IOException ex){
 		}
-		add(DeletePost, "cell 3 4 3 4,wrap");
+		DeletePost.setEnabled(false);
+		add(DeletePost, "cell 3 5 3 0,wrap");
 
 	}
+	
+	private PostObject getSelectedPost(){
+		table.convertRowIndexToModel(0);
 
+		int[] row = table.getSelectedRows();
+		for(int x=0; x<row.length; x++){
+			row[x] = table.convertRowIndexToModel(row[x]);//convert index to model so value does not change if table sorted
+			
+			System.out.println(table.getModel().getValueAt(row[x],5));//get link to delete post or remove ad
+		}
+		/*if(row != -1){
+			System.out.println(table.getModel().getValueAt(row,0));
+		}else{
+			return null;
+		}*/
+		return null;
+	}
+
+	private void toggleDeleteButtons(boolean toggleable){
+			DeleteAd.setEnabled(toggleable);
+			DeletePost.setEnabled(toggleable);
+	}
 }

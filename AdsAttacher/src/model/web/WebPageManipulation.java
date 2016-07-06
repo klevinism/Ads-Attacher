@@ -57,8 +57,12 @@ public class WebPageManipulation{
 		for(DomElement element; itr.hasNext();){
 			element = itr.next();
 			if(element.hasChildNodes()){
-				if(element.getFirstChild().getNodeName().equals("button")){
-					btn = (HtmlButton)element.getFirstChild();
+				
+				Iterable<DomElement> itr2 = (Iterable<DomElement>) element.getChildElements();
+				for(DomElement element2 : itr2){
+					if(element2.getNodeName().equals("button")){
+						btn = (HtmlButton)element2;
+					}
 				}
 			}
 		}
