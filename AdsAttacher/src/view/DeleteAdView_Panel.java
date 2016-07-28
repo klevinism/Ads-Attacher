@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import model.PostObject;
+import model.async.AsyncTasks;
 import model.globals.Globals;
 import model.table.TableModel;
 import net.miginfocom.swing.MigLayout;
@@ -25,8 +26,6 @@ import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.RowSorterEvent;
-import javax.swing.event.RowSorterListener;
 
 @SuppressWarnings("serial")
 public class DeleteAdView_Panel extends JPanel {
@@ -35,7 +34,7 @@ public class DeleteAdView_Panel extends JPanel {
 	private JSeparator separator;
 	private PostObject posts = new PostObject();
 	private LinkedList<PostObject> linkedPosts = new LinkedList<PostObject>();
-	private String[] columnNames = {"Id","Title","Author","Category","Date","Url"};
+	private String[] columnNames = {"Id","Title","Author","Category","Date","Url","DeleteUrl"};
 	private JButton DeleteAd, DeletePost;
 	
 	public void doInBackground(){
@@ -108,7 +107,10 @@ public class DeleteAdView_Panel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				getSelectedPost();
+				AsyncTasks asyncTasks = new AsyncTasks();
+				asyncTasks.deleteAd(getSelectedPost());
+				Thread async = new Thread(asyncTasks);
+				async.run();
 			}}
 		);
 		
@@ -121,29 +123,47 @@ public class DeleteAdView_Panel extends JPanel {
 		}catch(IOException ex){
 		}
 		DeletePost.setEnabled(false);
+		DeletePost.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println(getSelectedPost().getDeleteUrl()+"<------Delete");
+				
+				AsyncTasks asyncTasks = new AsyncTasks();
+				asyncTasks.deletePost(getSelectedPost());
+				Thread async = new Thread(asyncTasks);
+				async.run();
+			}}
+		);
 		add(DeletePost, "cell 3 5 3 0,wrap");
 
 	}
 	
 	private PostObject getSelectedPost(){
+		PostObject selectedPost = null;
 		table.convertRowIndexToModel(0);
 
 		int[] row = table.getSelectedRows();
 		for(int x=0; x<row.length; x++){
+			selectedPost = new PostObject();
 			row[x] = table.convertRowIndexToModel(row[x]);//convert index to model so value does not change if table sorted
 			
-			System.out.println(table.getModel().getValueAt(row[x],5));//get link to delete post or remove ad
+			selectedPost.setId((int)table.getModel().getValueAt(row[x],0));
+			selectedPost.setTitle(table.getModel().getValueAt(row[x],1).toString());
+			selectedPost.setAuthor(table.getModel().getValueAt(row[x],2).toString());
+			selectedPost.setCategory(table.getModel().getValueAt(row[x],3).toString());
+			selectedPost.setDate(table.getModel().getValueAt(row[x],4).toString());
+			selectedPost.setUrl(table.getModel().getValueAt(row[x],5).toString());
+			selectedPost.setDeleteUrl(table.getModel().getValueAt(row[x],6).toString());
 		}
-		/*if(row != -1){
-			System.out.println(table.getModel().getValueAt(row,0));
-		}else{
-			return null;
-		}*/
-		return null;
+		return selectedPost;
 	}
 
 	private void toggleDeleteButtons(boolean toggleable){
 			DeleteAd.setEnabled(toggleable);
 			DeletePost.setEnabled(toggleable);
 	}
+	
+	
 }

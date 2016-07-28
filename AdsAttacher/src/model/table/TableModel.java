@@ -58,7 +58,7 @@ public class TableModel extends AbstractTableModel {
             case 3: return list.get(rowIndex).getCategory();
             case 4: return list.get(rowIndex).getDate();
             case 5: return list.get(rowIndex).getUrl();
-
+            case 6: return list.get(rowIndex).getDeleteUrl();
         }
         return null;
     }

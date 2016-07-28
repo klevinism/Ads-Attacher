@@ -16,18 +16,20 @@ public class PostObject{
 	private String Title;
 	private String Author;
 	private String Category;
-	private String Date;	
+	private String Date;
+	private String DeletePostUrl;
 	 
 	public PostObject(){
 	}
 	
-	public PostObject(int id, String url, String title, String author, String category, String date){
+	public PostObject(int id, String url, String title, String author, String category, String date, String deleteUrl){
 		Id = id;
 		Url = url;
 		Title = title;
 		Author = author;
 		Category = category;
 		Date = date;
+		DeletePostUrl = deleteUrl;
 	}
 	
 	public void setId(int id){
@@ -78,6 +80,14 @@ public class PostObject{
 		return Date;
 	}
 	
+	public void setDeleteUrl(String url){
+		DeletePostUrl = url;
+	}
+	
+	public String getDeleteUrl(){
+		return DeletePostUrl;
+	}
+	
 	public LinkedList<PostObject> getAllPosts(){
 		//TODO
 		//1 connect to page
@@ -103,7 +113,10 @@ public class PostObject{
 		List<DomElement> listAuthor =  (List<DomElement>) wpManipulation.getByXPath("//td[@class='author column-author']");
 		List<DomElement> listCategory =  (List<DomElement>) wpManipulation.getByXPath("//td[@class='categories column-categories']");
 		List<DomElement> listDate =  wpManipulation.getElementsByTagName("abbr");
+		List<DomElement> listDeleteUrl =  (List<DomElement>) wpManipulation.getByXPath("//a[@class='submitdelete']");
 
+		//System.out.println(listDeleteUrl.get(0).asXml());
+		
 		LinkedList<PostObject> linkedPosts = new LinkedList<PostObject>();
 		
 		for(int x=0; x<listId.size();x++){
@@ -115,7 +128,7 @@ public class PostObject{
 			singlePost.setAuthor(listAuthor.get(x).asText());
 			singlePost.setCategory(listCategory.get(x).asText());
 			singlePost.setDate(listDate.get(x).asText());
-			
+			singlePost.setDeleteUrl(listDeleteUrl.get(x).getAttribute("href"));
 			linkedPosts.add(singlePost);
 		}
 		
