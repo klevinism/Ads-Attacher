@@ -3,6 +3,7 @@ package model.async;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -70,16 +71,6 @@ public class AsyncTasks implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		/*TODO
-		 * 1- Open url to edit post
-		 * 2- Get Post 
-		 * 3- Find and delete click jack
-		 * 4- Insert description of post with no click jack
-		 * 5- Save post
-		 * 5- Check if post saved ->y/n:=>{y: true, n: false}
-		 */
-		
 		return false;
 	}
 	
@@ -96,9 +87,13 @@ public class AsyncTasks implements Runnable {
 				
 				List<HtmlAnchor> deleteLink = (List<HtmlAnchor>) pageManipulation.getByXPath("//a[@class='submitdelete deletion']");
 				
-				System.out.println(deleteLink.get(0).asXml());
 				HtmlPage redirect = deleteLink.get(0).click();
-				//System.out.println(redirect..getCanonicalXPath());
+				
+				if(redirect.toString().contains("trashed=1") && redirect.toString().contains("ids="+post.getId())){
+					System.out.println("DONE");
+				}else{
+					System.out.println("FAIL");
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

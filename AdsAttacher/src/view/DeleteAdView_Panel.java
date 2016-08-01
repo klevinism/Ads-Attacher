@@ -128,8 +128,6 @@ public class DeleteAdView_Panel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println(getSelectedPost().getDeleteUrl()+"<------Delete");
-				
 				AsyncTasks asyncTasks = new AsyncTasks();
 				asyncTasks.deletePost(getSelectedPost());
 				Thread async = new Thread(asyncTasks);
