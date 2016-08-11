@@ -27,8 +27,6 @@ public class AsyncTasks implements Runnable {
 	public void run(){
 		// TODO Auto-generated method stub
 		Thread.currentThread().setName("AsyncTasks");
-		
-		
 	}
 	
 	public boolean deleteAd(PostObject post){
@@ -56,10 +54,13 @@ public class AsyncTasks implements Runnable {
 					txtAreaDescription.setText(postDescriptionNoAd);
 					HtmlPage landingPage = publish.click();
 					
+					
 					JOptionPane.showMessageDialog(null, "Ad removed");
+					return true;
 
 				}else{
 					JOptionPane.showMessageDialog(null, "Sorry no ad code found inside this post");
+					return false;
 					/*TODO
 					 * 1- Notify that post doesn't have an ad
 					 */
@@ -90,9 +91,9 @@ public class AsyncTasks implements Runnable {
 				HtmlPage redirect = deleteLink.get(0).click();
 				
 				if(redirect.toString().contains("trashed=1") && redirect.toString().contains("ids="+post.getId())){
-					System.out.println("DONE");
+					return true;
 				}else{
-					System.out.println("FAIL");
+					return false;
 				}
 			}
 		}catch(Exception e){

@@ -27,6 +27,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.sun.glass.ui.Cursor;
+
 @SuppressWarnings("serial")
 public class DeleteAdView_Panel extends JPanel {
 	private JTextField textField;
@@ -124,14 +126,17 @@ public class DeleteAdView_Panel extends JPanel {
 		}
 		DeletePost.setEnabled(false);
 		DeletePost.addActionListener(new ActionListener(){
-
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0){
+				//currentFrame.setCursor(cursor);
+
 				// TODO Auto-generated method stub
 				AsyncTasks asyncTasks = new AsyncTasks();
 				asyncTasks.deletePost(getSelectedPost());
 				Thread async = new Thread(asyncTasks);
 				async.run();
+				
+				fireRefreshTableData();
 			}}
 		);
 		add(DeletePost, "cell 3 5 3 0,wrap");
@@ -157,11 +162,22 @@ public class DeleteAdView_Panel extends JPanel {
 		}
 		return selectedPost;
 	}
+	
+	private void fireRefreshTableData(){
+		linkedPosts = new LinkedList<PostObject>();
+		linkedPosts = posts.getAllPosts();
+		TableModel tableModel = new TableModel(linkedPosts);
+		tableModel.setColumnName(columnNames);
+		table.setModel(tableModel);
+		
+		tableModel.fireTableDataChanged();
+		System.out.println("fireTableDataChanged");
+	}
 
 	private void toggleDeleteButtons(boolean toggleable){
 			DeleteAd.setEnabled(toggleable);
 			DeletePost.setEnabled(toggleable);
 	}
-	
+
 	
 }

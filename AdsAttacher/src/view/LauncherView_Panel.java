@@ -69,8 +69,8 @@ public class LauncherView_Panel extends JPanel {
 				currentFrame.setVisible(true);
 				long endTime = System.nanoTime();
 				long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-System.out.println(duration/1000000+"ms");
-
+				
+				System.out.println(duration/1000000+"ms");
 			}
 		});
 		panel.add(btnNewButton_1, "cell 0 2,alignx center,aligny center");

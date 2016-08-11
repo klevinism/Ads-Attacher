@@ -115,15 +115,13 @@ public class PostObject{
 		List<DomElement> listDate =  wpManipulation.getElementsByTagName("abbr");
 		List<DomElement> listDeleteUrl =  (List<DomElement>) wpManipulation.getByXPath("//a[@class='submitdelete']");
 
-		//System.out.println(listDeleteUrl.get(0).asXml());
-		
 		LinkedList<PostObject> linkedPosts = new LinkedList<PostObject>();
 		
 		for(int x=0; x<listId.size();x++){
 			PostObject singlePost = new PostObject();
 
 			singlePost.setId(Integer.parseInt(listId.get(x).getAttribute("value")));
-			singlePost.setUrl(listTitle.get(x).getAttribute("href"));
+			singlePost.setUrl(listUrl.get(x).getAttribute("href"));
 			singlePost.setTitle(listTitle.get(x).asText());
 			singlePost.setAuthor(listAuthor.get(x).asText());
 			singlePost.setCategory(listCategory.get(x).asText());

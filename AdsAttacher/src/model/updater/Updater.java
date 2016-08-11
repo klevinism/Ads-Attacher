@@ -237,8 +237,7 @@ public class Updater extends JFrame{
     }
     private String getDownloadLinkFromHost() throws MalformedURLException, IOException
     {
-        String path = "http://delimeta.info/updater/updater_AdsAttacher/updater.xml";
-        URL url = new URL(path);
+        URL url = new URL(Globals.paths.RemoteUpdaterFileUrl);
 
         InputStream html = null;
 
@@ -254,6 +253,7 @@ public class Updater extends JFrame{
         }
         return buffer.substring(buffer.indexOf("[url]")+5,buffer.indexOf("[/url]"));
     }
+    
     public String getLatestVersion(String versionURL) throws Exception
     {
         String data = getData(versionURL);
@@ -261,11 +261,12 @@ public class Updater extends JFrame{
     }
     private static String getData(String address)throws Exception
     {
-        URL url = new URL(address);
-        
+        URLConnection url = new URL(address).openConnection();
+        url.addRequestProperty("User-Agent", "Mozilla/5.0 WINDOWS NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+
         InputStream html = null;
 
-        html = url.openStream();
+        html = url.getInputStream();
         
         int c = 0;
         StringBuffer buffer = new StringBuffer("");

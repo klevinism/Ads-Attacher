@@ -21,7 +21,7 @@ public class WebConnection{
 		webClient.getOptions().setAppletEnabled(false);
 		webClient.getOptions().setDoNotTrackEnabled(false);
 		webClient.getOptions().setPopupBlockerEnabled(false);
-		webClient.getOptions().setUseInsecureSSL(false);
+		webClient.getOptions().setUseInsecureSSL(true);
 	}
 	
 	public void connect(String url) throws MalformedURLException, IOException{
