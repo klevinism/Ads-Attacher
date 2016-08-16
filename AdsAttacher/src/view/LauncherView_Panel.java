@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import java.awt.Cursor;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -60,6 +62,7 @@ public class LauncherView_Panel extends JPanel {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				currentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				long startTime = System.nanoTime();
 
 				DeleteAdView_Panel adDeleter = new DeleteAdView_Panel(currentFrame);
@@ -71,6 +74,8 @@ public class LauncherView_Panel extends JPanel {
 				long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
 				
 				System.out.println(duration/1000000+"ms");
+				currentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
 			}
 		});
 		panel.add(btnNewButton_1, "cell 0 2,alignx center,aligny center");

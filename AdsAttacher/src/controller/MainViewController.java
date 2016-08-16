@@ -82,8 +82,6 @@ public class MainViewController extends Controller{
 				}
 				
 				String postUrl = this.post();//Post to site
-				
-				System.out.println(postUrl);
 			}
 		}
 	}
@@ -115,13 +113,6 @@ public class MainViewController extends Controller{
 			//Show Dialog
 		}
 		
-		/*
-		 * TODO
-		 * 1- set title 
-		 * 2- set description
-		 * 3- get url of post
-		 * 4- publish
-		 */
 		return postedUrl;
 	}
 	
