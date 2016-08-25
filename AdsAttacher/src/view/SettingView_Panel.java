@@ -45,18 +45,40 @@ import javax.swing.JTextArea;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
+import controller.SettingViewController;
+
+import model.SettingViewObject;
+
 public class SettingView_Panel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField websiteUrlField;
+	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private TextField tf_adminUrl;
+	private JTextArea adCodeTextArea;
+	private SettingViewObject settingViewObject;
+	private SettingViewController svc;
 
+	public void doInBackground(){
+		/*
+		 * TODO 
+		 * 1- get all data from settings xml file
+		 * 2- put them in setting object
+		 * 3- show them in settings
+		 */
+		
+		svc = new SettingViewController();
+		settingViewObject = svc.getSettings();
+	}
+	
 	/**
 	 * Create the panel.
 	 */
 	public SettingView_Panel() {
+		this.doInBackground();
+
 		setLayout(new GridLayout(0, 1, 0, 0));
 		JPanel panel = new JPanel();
 		add(panel);
@@ -78,7 +100,7 @@ public class SettingView_Panel extends JPanel {
 		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JLabel lblWordpressAdminUrl = new JLabel("Wordpress Admin Url :");
+		JLabel lblWordpressAdminUrl = new JLabel("Website Url :");
 		GridBagConstraints gbc_lblWordpressAdminUrl = new GridBagConstraints();
 		gbc_lblWordpressAdminUrl.gridwidth = 2;
 		gbc_lblWordpressAdminUrl.anchor = GridBagConstraints.EAST;
@@ -87,15 +109,15 @@ public class SettingView_Panel extends JPanel {
 		gbc_lblWordpressAdminUrl.gridy = 1;
 		panel_1.add(lblWordpressAdminUrl, gbc_lblWordpressAdminUrl);
 		
-		textField = new JTextField();
+		websiteUrlField = new JTextField(settingViewObject.getAdminUrl());
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 25);
 		gbc_textField.gridwidth = 6;
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 3;
 		gbc_textField.gridy = 1;
-		panel_1.add(textField, gbc_textField);
-		textField.setColumns(10);
+		panel_1.add(websiteUrlField, gbc_textField);
+		websiteUrlField.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username :");
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
@@ -106,15 +128,15 @@ public class SettingView_Panel extends JPanel {
 		gbc_lblUsername.gridy = 2;
 		panel_1.add(lblUsername, gbc_lblUsername);
 		
-		textField_1 = new JTextField();
+		usernameField = new JTextField(settingViewObject.getAdminUsername());
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.gridwidth = 6;
 		gbc_textField_1.insets = new Insets(0, 0, 5, 25);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_1.gridx = 3;
 		gbc_textField_1.gridy = 2;
-		panel_1.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		panel_1.add(usernameField, gbc_textField_1);
+		usernameField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password :");
 		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
@@ -125,7 +147,7 @@ public class SettingView_Panel extends JPanel {
 		gbc_lblPassword.gridy = 3;
 		panel_1.add(lblPassword, gbc_lblPassword);
 		
-		passwordField = new JPasswordField();
+		passwordField = new JPasswordField(settingViewObject.getAdminPassword());
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.gridwidth = 6;
 		gbc_passwordField.insets = new Insets(0, 0, 5, 25);
@@ -152,10 +174,11 @@ public class SettingView_Panel extends JPanel {
 		gbc_lblAdCode.gridy = 6;
 		panel_1.add(lblAdCode, gbc_lblAdCode);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setLineWrap(true);
-		textArea.setBorder(BorderFactory.createLineBorder(Color.lightGray));
-		JScrollPane txtAreaScrollPane = new JScrollPane(textArea);
+		adCodeTextArea = new JTextArea(settingViewObject.getAdCode());
+		adCodeTextArea.setLineWrap(true);
+		adCodeTextArea.setAutoscrolls(true);
+		adCodeTextArea.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+		JScrollPane txtAreaScrollPane = new JScrollPane(adCodeTextArea);
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.gridheight = 3;
 		gbc_textArea.gridwidth = 4;
@@ -166,12 +189,6 @@ public class SettingView_Panel extends JPanel {
 		panel_1.add(txtAreaScrollPane, gbc_textArea);
 		
 		JPanel panel_2 = new JPanel();
-//		GridBagLayout gbl_panel_2 = new GridBagLayout();
-//		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-//		gbl_panel_2.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-//		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-//		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-//		panel_2.setLayout(gbl_panel_2);
 		
 		//JavaFx used
 		//using a two-parameter constructor
@@ -197,7 +214,7 @@ public class SettingView_Panel extends JPanel {
 
         		grid.setHgap(20);
         		
-        		TextField tf_adminUrl = new TextField();
+        		tf_adminUrl = new TextField();
         		tf_adminUrl.setPromptText("Admin page url");
         		tf_adminUrl.setTooltip(new Tooltip("Admin page url ex: 'wp-admin'"));
         		tf_adminUrl.setMinWidth(200);
@@ -363,8 +380,6 @@ public class SettingView_Panel extends JPanel {
 * --------------------------------!Actions-----------------------------------
 */
         		tp2.setContent(grid2);
-        		
-        		
             	gridBig.add(tp2, 0, 1);
 
             	panelJFXP.setScene(scene);
@@ -490,12 +505,22 @@ public class SettingView_Panel extends JPanel {
 		gbc_textField_4.gridy = 6;
 		panel_2.add(textField_4, gbc_textField_4);
 		textField_4.setColumns(10);
+		
 	}
-	
-	public void setWpAdminUrl(String WpAdminUrl){
-		textField.setText(WpAdminUrl);
-	}
-	public String getWpAdminUrl(){
-		return textField.getText().toString();
+
+	public SettingViewObject getSettings(){
+		SettingViewObject settingObject = new SettingViewObject();
+		
+		String websiteUrl = websiteUrlField.getText();
+		String username = usernameField.getText();
+		String password = new String(passwordField.getPassword());
+		String adcode = adCodeTextArea.getText();
+		
+		settingObject.setAdminUrl(websiteUrl);
+		settingObject.setAdminUsername(username);
+		settingObject.setAdminPassword(password);
+		settingObject.setAdCode(adcode);
+		
+		return settingObject;
 	}
 }

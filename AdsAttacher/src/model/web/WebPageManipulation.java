@@ -70,6 +70,10 @@ public class WebPageManipulation{
 		return btn;
 	}
 	
+	public List<?> getSubmitButton(String regex){
+		return this.Page.getByXPath(regex);
+	}
+	
 	public DomNodeList<DomElement> getElementsByTagName(String tagName){
 		return this.Page.getElementsByTagName(tagName);
 	}
