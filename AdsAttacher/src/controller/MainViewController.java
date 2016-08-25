@@ -62,9 +62,7 @@ public class MainViewController extends Controller{
 			//1. Create instance of internet connection
 			connection = new WebConnection();
 			try{
-				connection.connect("http://interestingfacts.altervista.org/wp-admin");
-				System.out.println(connection.getStartPage());
-
+				connection.connect(Globals.paths.RemoteAdminUrl);
 				//Take this url from SettingViewInputObject
 			}catch(Exception e){
 				//Get Default Dialog used for exceptions, & add exception
@@ -75,7 +73,7 @@ public class MainViewController extends Controller{
 			if(connection.login()){//Login to site
 				
 				try {
-					connection.connect("http://interestingfacts.altervista.org/wp-admin/post-new.php");
+					connection.connect(Globals.paths.RemoteAdminUrl+"/post-new.php");
 				} catch (Exception e) {
 					//Get Default Dialog used for exceptions, & add exception
 					//Show Dialog
@@ -88,7 +86,8 @@ public class MainViewController extends Controller{
 	
 	private String post(){
 		String postedUrl = null;
-		
+		String domain = Globals.paths.RemoteAdminUrl.substring(0,Globals.paths.RemoteAdminUrl.lastIndexOf("wp-admin")-1)+"/";
+				
 		webPageManipulation = new WebPageManipulation(connection.getStartPage());
 		
 		DomElement titleElement = webPageManipulation.getElementById("title");
@@ -104,8 +103,11 @@ public class MainViewController extends Controller{
 			webPageManipulation.setPage(nxt);
 			
 			DomElement url_posted = webPageManipulation.getElementById("editable-post-name-full");
-			JOptionPane.showMessageDialog(null, "http://interestingfacts.altervista.org/"+url_posted.getTextContent());
-			StringSelection selection = new StringSelection("http://interestingfacts.altervista.org/"+url_posted.getTextContent());
+			
+			String postUrl = domain+url_posted.getTextContent();
+			
+			JOptionPane.showMessageDialog(null, postUrl);
+			StringSelection selection = new StringSelection(postUrl);
 		    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		    clipboard.setContents(selection, selection);
 		} catch (IOException e) {
