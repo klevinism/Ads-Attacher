@@ -24,11 +24,7 @@ public abstract class Globals {
 			+ "<span id='link' class='link'><!-- Assume Website CONTENT is HERE -->"
 			+ "<div id='wrax' style='position: absolute; opacity: 0; filter: alpha(opacity = 50); "
 			+ "margin-left: 9px; z-index: 100;'>"
-			+ "<script async src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>"
-			+ "<!-- Altervista-interestingfacts-336X280 -->"
-			+ "<ins class='adsbygoogle' style='display:inline-block;width:336px;height:280px' "
-			+ "data-ad-client='ca-pub-7183438764234855' data-ad-slot='9005268128'></ins><script>"
-			+ "(adsbygoogle = window.adsbygoogle || []).push({});</script> </div><script type='text/javascript'>"
+			+ "**ADCODEHERE** </div><script type='text/javascript'>"
 			+ "jQuery( document ).ready( function() {$('#link').mousemove( function( e ) {"
 			+ " $( '#wrax' ).css( { top: e.pageY - 17, left: e.pageX - 8} );} );} )</script></span>";
 }
