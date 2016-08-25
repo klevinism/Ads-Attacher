@@ -1,7 +1,5 @@
 package model;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +7,6 @@ import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.javascript.host.Element;
 
-import model.globals.Globals;
 import model.web.WebConnection;
 import model.web.WebPageManipulation;
 
@@ -106,10 +103,10 @@ public class PostObject{
 		//1 connect to page
 		WebConnection conn = new WebConnection();
 		try {
-			conn.connect(Globals.paths.RemoteAdminUrl);
+			conn.connect("http://interestingfacts.altervista.org/wp-admin");
 
 			if(conn.login()){
-				conn.connect(Globals.paths.RemoteAdminUrl+"/edit.php");
+				conn.connect("http://interestingfacts.altervista.org/wp-admin/edit.php");
 			}
 
 		} catch (Exception e) {

@@ -1,22 +1,13 @@
 package model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,8 +22,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
-import model.globals.Util;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -81,53 +70,34 @@ public class XMLFileManipulation {
 	 * -elements	= A map<ElementName, ElementHierarchy>
 	 *  
 	 */
-	public void buildElements(HashMap<String, Integer> elements){
+	public void buildElements(Map<String, Integer> elements){
 		doc = (Document) docBuilder.newDocument();
-		Element rootElement = (Element) doc.getFirstChild();
+		Element rootElement = (Element) doc;
 		Element TempElement = null;
-
-        Map<String, Integer> sortedMapAsc = Util.sortByComparator(elements, true);
-        int prevHierarchy = 0;
-        
-		for(Entry<String, Integer> element : sortedMapAsc.entrySet()){
+		
+		for(Entry<String, Integer> element : elements.entrySet()){
 			String name = element.getKey();
-			int hierarchy = element.getValue();
+			int hierarchy = element.getValue();//TODO Make possible hierarchy.
 			
+			TempElement = doc.createElement(name);
+			rootElement.appendChild(TempElement);
+			rootElement = TempElement;
 			
-			if (rootElement == null || hierarchy == 0){//Create first element if doesn't exist.
-				rootElement = doc.createElement((String)name);
-			    doc.appendChild(rootElement);
-			}else if(hierarchy <= prevHierarchy){
-				if(rootElement.getParentNode() != null){
-					rootElement = (Element) rootElement.getParentNode();
-				}
-				TempElement = doc.createElement((String)name);
-				rootElement.appendChild(TempElement);
-				rootElement = TempElement;
-
-			}else{
-				TempElement = doc.createElement((String)name);
-				rootElement.appendChild(TempElement);
-				rootElement = TempElement;
-			}
-			
-			prevHierarchy = hierarchy;
 			//TODO Make possible hierarchy.
 			//Hierarchy is thought to be OK (0,1,2....)
-			//Make if not OK (2,0,1....) 
+			//Make if not OK (2,0,1....)
 		}
 	}
 	
- 	
 	/*
 	 * saveXML saves all elements created in the given path
 	 * -path		= The path of the file to be created
 	 */
-	public void saveXML(String path) throws TransformerException, FileNotFoundException{
+	public void saveXML(String path) throws TransformerException{
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new FileOutputStream(path));
+		StreamResult result = new StreamResult(new File(path));
 		transformer.transform(source, result);
 	}
 	
@@ -224,7 +194,7 @@ public class XMLFileManipulation {
 					try {
 						saveXML("Users");
 						return true;
-					} catch (Exception e) {
+					} catch (TransformerException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -240,9 +210,6 @@ public class XMLFileManipulation {
 		element.appendChild(doc.createTextNode(text));
 	}
 	
-	public NodeList getElement(String elementName){
-		return doc.getElementsByTagName(elementName);
-	}
 	public boolean deleteNode(String node){
 		
 		//TODO Make deleteNode for all 
@@ -257,10 +224,13 @@ public class XMLFileManipulation {
 			b13Node.getParentNode().removeChild(b13Node);
 			saveXML("Users");
 			return true; 
-		} catch (Exception e) {
+		} catch (XPathExpressionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 		return false;
 	}
