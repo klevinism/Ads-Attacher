@@ -8,7 +8,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
@@ -111,12 +110,10 @@ public class AttachAdView_Panel extends JPanel {
 		final JButton btnAttachAd = new JButton("Attach Ad");
 		btnAttachAd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
-				currentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-
+				
 				mainVC = new MainViewController(getInput());
 				mainVC.setActionPerformed(btnAttachAd.getText());
-				currentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-
+				
 			}
 		});
 		

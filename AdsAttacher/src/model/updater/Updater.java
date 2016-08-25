@@ -214,12 +214,10 @@ public class Updater extends JFrame{
          }
 
     }
-    
     private void downloadFile(String link) throws MalformedURLException, IOException
     {
         URL url = new URL(link);
         URLConnection conn = url.openConnection();
-        conn.addRequestProperty("User-Agent", "Mozilla/5.0 WINDOWS NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
         InputStream is = conn.getInputStream();
         long max = conn.getContentLength();
         outText.setText(outText.getText()+"\n"+"Downloding file...\nUpdate Size(compressed): "+max+" Bytes");
@@ -237,16 +235,13 @@ public class Updater extends JFrame{
         outText.setText(outText.getText()+"\nDownload Complete!");
 
     }
-    
     private String getDownloadLinkFromHost() throws MalformedURLException, IOException
     {
         URL url = new URL(Globals.paths.RemoteUpdaterFileUrl);
-        URLConnection con = url.openConnection();
-        con.addRequestProperty("User-Agent", "Mozilla/5.0 WINDOWS NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 
         InputStream html = null;
 
-        html = con.getInputStream();
+        html = url.openStream();
 
         int c = 0;
         StringBuilder buffer = new StringBuilder("");

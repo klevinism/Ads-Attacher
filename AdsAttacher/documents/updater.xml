@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Updater>
 <UpdaterGeneral>
-<CurrentVersion>1.0.2</CurrentVersion>
+<CurrentVersion>1.0.0</CurrentVersion>
 </UpdaterGeneral>
 <UpdaterAdvanced>
 <Title field="KL">1.22</Title>
 <Content >1.23</Content>
 <Publish ></Publish>
 </UpdaterAdvanced>
-</Updater>                                                                        
+</Updater>
